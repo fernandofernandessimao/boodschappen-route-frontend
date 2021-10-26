@@ -1,6 +1,6 @@
 const initialState = {
   artworks: [],
-  artworkDetails: {},
+  artworkDetails: [],
 };
 
 export default (state = initialState, action) => {
@@ -17,14 +17,24 @@ export default (state = initialState, action) => {
         artworkDetails: action.payload,
       };
     }
-    case "ARTWORK/hearts":{
+    case "ARTWORK/hearts": {
       return {
         ...state,
         artworkDetails: {
           ...state.artworkDetails,
-          hearts : action.payload
-        }
-      }
+          hearts: action.payload,
+        },
+      };
+    }
+    case "ARTWORK/newBid": {
+      console.log("payload", action.payload);
+      return {
+        ...state,
+        artworkDetails: {
+          ...state.artworkDetails,
+          bids: [...state.artworkDetails.bids, action.payload],
+        },
+      };
     }
     default:
       return state;

@@ -14,6 +14,8 @@ import { getUserWithStoredToken } from "./store/user/actions";
 import { Jumbotron } from "react-bootstrap";
 import Artworks from "./components/Artworks";
 import ArtworkDetails from "./components/ArtworkDetails";
+import Auction from "./components/Auction";
+import About from "./components/About";
 
 const Other = () => (
   <Jumbotron>
@@ -36,7 +38,9 @@ function App() {
       {isLoading ? <Loading /> : null}
       <Switch>
         <Route exact path="/" component={Artworks} />
-        <Route exact path="/artworks/:id" component={ArtworkDetails} />
+        <Route path="/artworks/:id" component={ArtworkDetails} />
+        <Route path="/auction" component={Auction} />
+        <Route path="/about" component={About} />
         <Route path="/other" component={Other} />
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
