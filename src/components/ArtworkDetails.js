@@ -8,7 +8,7 @@ import Loading from "./Loading";
 export default function ArtworkDetails(params) {
   const { id } = useParams();
   const artworkDetails = useSelector(selectArtworkDetails);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); 
 
   useEffect(() => {
     dispatch(getArtworkDetails(id));
@@ -26,7 +26,17 @@ export default function ArtworkDetails(params) {
       />
       <h1>{artworkDetails.title}</h1>
       <p>Hearts: {artworkDetails.hearts}</p>
-      <p> Bids: {artworkDetails.bids.length}</p>
+      Bids: <br />
+      <ol style={{ }}>
+        {/* 3 hours to solve this rendering error, never again! */}
+        {artworkDetails?.bids?.map((bid) => {
+          return (
+            <li>
+              {bid.email} {bid.amount}
+            </li>
+          );
+        })}
+      </ol>
     </div>
   );
 }
