@@ -12,6 +12,7 @@ export default function SignUp() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isArtist, setArtist] = useState(false);
   const dispatch = useDispatch();
   const token = useSelector(selectToken);
   const history = useHistory();
@@ -25,13 +26,11 @@ export default function SignUp() {
   function submitForm(event) {
     event.preventDefault();
 
-    dispatch(signUp(name, email, password));
-
+    dispatch(signUp(name, email, password, isArtist));
     setEmail("");
     setPassword("");
-    setName("");
+    setName("");    
   }
-
   return (
     <Container>
       <Form as={Col} md={{ span: 6, offset: 3 }} className="mt-5">
@@ -40,7 +39,7 @@ export default function SignUp() {
           <Form.Label>Name</Form.Label>
           <Form.Control
             value={name}
-            onChange={event => setName(event.target.value)}
+            onChange={(event) => setName(event.target.value)}
             type="text"
             placeholder="Enter name"
             required
@@ -50,7 +49,7 @@ export default function SignUp() {
           <Form.Label>Email address</Form.Label>
           <Form.Control
             value={email}
-            onChange={event => setEmail(event.target.value)}
+            onChange={(event) => setEmail(event.target.value)}
             type="email"
             placeholder="Enter email"
             required
@@ -64,11 +63,19 @@ export default function SignUp() {
           <Form.Label>Password</Form.Label>
           <Form.Control
             value={password}
-            onChange={event => setPassword(event.target.value)}
+            onChange={(event) => setPassword(event.target.value)}
             type="password"
             placeholder="Password"
             required
           />
+          <input
+            onChange={(event) => {
+              setArtist(!isArtist);
+            }}
+            type="checkbox"
+            id="artist"
+          ></input>
+          <label for="artist"> Artist</label>
         </Form.Group>
         <Form.Group className="mt-5">
           <Button variant="primary" type="submit" onClick={submitForm}>

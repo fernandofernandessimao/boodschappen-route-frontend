@@ -37,7 +37,7 @@ export default function Artwork() {
               <Button>See details</Button>
             </Link>
             <p>
-              Hearts: {artwork.hearts} Bids: {artwork.bids.length}{" "}
+              Hearts: {artwork.hearts} Bids: {artwork.bids.length}
             </p>
           </div>
         );

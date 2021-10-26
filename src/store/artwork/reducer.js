@@ -1,5 +1,6 @@
 const initialState = {
   artworks: [],
+  artworkDetails: {},
 };
 
 export default (state = initialState, action) => {
@@ -8,6 +9,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         artworks: [...action.payload],
+      };
+    }
+    case "ARTWORK/details": {
+      return {
+        ...state,
+        artworkDetails: action.payload,
       };
     }
     default:
