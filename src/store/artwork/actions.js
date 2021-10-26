@@ -39,3 +39,21 @@ export const getArtworkDetails = (id) => async (dispatch, getState) => {
     console.log(e.message);
   }
 };
+
+export const updateArtworkHeartFetched = (hearts) => {
+  return {
+    type: "ARTWORK/hearts",
+    payload: hearts,
+  };
+};
+
+export const updateArtworkHeart = (id, heart) => async (dispatch, getState) => {
+  dispatch(appLoading);
+  try {    
+    const response = await axios.patch(`${URL}/artworks/${id}/hearts/${heart}`);
+    dispatch(updateArtworkHeartFetched(heart));
+    dispatch(appDoneLoading);
+  } catch (e) {
+    console.log(e.message);
+  }
+};

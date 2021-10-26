@@ -17,6 +17,15 @@ export default (state = initialState, action) => {
         artworkDetails: action.payload,
       };
     }
+    case "ARTWORK/hearts":{
+      return {
+        ...state,
+        artworkDetails: {
+          ...state.artworkDetails,
+          hearts : action.payload
+        }
+      }
+    }
     default:
       return state;
   }
