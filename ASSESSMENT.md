@@ -10,7 +10,7 @@
 | 5 Posting an artwork         | 11         | 11/11| 0/11      |
 | 6 Signing up as an artist    | 7          | 7/7  | 0/7       |
 | 7 Finishing up               | 5          | 5/5  | 0/5       |
-| Total                        | 60         | 0/60 | 0/60      |
+| Total                        | 60         | 57/60| 0/60      |
 
 | 0. Criteria - Migrations, models & seeds                                   | Points | Self | Evaluator |
 | -------------------------------------------------------------------------- | ------ | ---- | --------- |

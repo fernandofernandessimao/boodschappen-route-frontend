@@ -29,7 +29,7 @@ export default function SignUp() {
     dispatch(signUp(name, email, password, isArtist));
     setEmail("");
     setPassword("");
-    setName("");    
+    setName("");
   }
   return (
     <Container>
@@ -60,6 +60,15 @@ export default function SignUp() {
         </Form.Group>
 
         <Form.Group controlId="formBasicPassword">
+        <input
+            onChange={(event) => {
+              setArtist(!isArtist);
+            }}
+            type="checkbox"
+            id="artist"
+          ></input>
+          <Form.Label> I am an Artist</Form.Label>
+          <br/>
           <Form.Label>Password</Form.Label>
           <Form.Control
             value={password}
@@ -67,15 +76,7 @@ export default function SignUp() {
             type="password"
             placeholder="Password"
             required
-          />
-          <input
-            onChange={(event) => {
-              setArtist(!isArtist);
-            }}
-            type="checkbox"
-            id="artist"
-          ></input>
-          <label for="artist"> Artist</label>
+          />                   
         </Form.Group>
         <Form.Group className="mt-5">
           <Button variant="primary" type="submit" onClick={submitForm}>

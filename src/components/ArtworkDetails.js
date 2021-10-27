@@ -39,7 +39,7 @@ export default function ArtworkDetails(params) {
   }
 
   return (
-    <div>
+    <div >
       <img src={`${artwork.imageUrl}`} alt="" width="500px" height="500px" />
       <h1>{artwork.title}</h1>
       <img src={`${heartImage}`} alt="heart" width="50px%" height="50px" />{" "}
