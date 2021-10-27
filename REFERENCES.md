@@ -1,0 +1,1 @@
+I used previous code exercises, both from teeachers and mine, as reference.

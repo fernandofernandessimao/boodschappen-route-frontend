@@ -10,6 +10,7 @@ import Loading from "./Loading";
 import { Button } from "bootstrap";
 import { selectToken, selectUser } from "../store/user/selectors";
 import { createBid } from "../store/artwork/actions";
+import { heartImage } from "../config/constants";
 
 export default function ArtworkDetails(params) {
   const { id } = useParams();
@@ -33,7 +34,6 @@ export default function ArtworkDetails(params) {
   function getMinimumBid() {
     if (sortedBid.length < 1) return artwork.minimumBid + 1;
     else {
-      console.log("oi");
       return sortedBid[0].amount + 1;
     }
   }
@@ -42,7 +42,8 @@ export default function ArtworkDetails(params) {
     <div>
       <img src={`${artwork.imageUrl}`} alt="" width="500px" height="500px" />
       <h1>{artwork.title}</h1>
-      <p>Hearts: {artwork.hearts}</p>
+      <img src={`${heartImage}`} alt="heart" width="50px%" height="50px" />{" "}
+      {artwork.hearts}
       <button
         onClick={() => dispatch(updateArtworkHeart(id, artwork.hearts + 1))}
       >

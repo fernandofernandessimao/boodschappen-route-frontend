@@ -4,7 +4,8 @@ import { selectArtworks } from "../store/artwork/selectors";
 import { getArtworks } from "../store/artwork/actions";
 import Loading from "./Loading";
 import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
+import { heartImage } from "../config/constants";
 
 export default function Artwork() {
   const dispatch = useDispatch();
@@ -36,8 +37,11 @@ export default function Artwork() {
             <Link to={`/artworks/${artwork.id}`}>
               <Button>See details</Button>
             </Link>
+            <p/>
             <p>
-              Hearts: {artwork.hearts} Bids: {artwork.bids.length}
+              <img src={`${heartImage}`}
+              alt="heart" width="10%" height="10%"/> {artwork.hearts} Bids: {artwork.bids.length}  
+              
             </p>
           </div>
         );

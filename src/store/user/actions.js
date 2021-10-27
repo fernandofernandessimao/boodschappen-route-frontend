@@ -143,12 +143,14 @@ export const startAnAuction = (title, imageUrl, minimumBid, userId) => {
   return async (dispatch, getState) => {
     dispatch(appLoading());
     try {
-      // const token = selectToken(getState());
-      const response = await axios.post(`${apiUrl}/auction/${userId}`, {
-        title,
-        imageUrl,
-        minimumBid,
-      });
+      const token = selectToken(getState());
+      const response = await axios.post(
+        `${apiUrl}/auction/${userId}`,
+        { title, imageUrl, minimumBid },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       dispatch(
         showMessageWithTimeout("success", true, "auction created", 1500)
       );

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { appDoneLoading, appLoading } from "../appState/actions";
+import { selectToken } from "../user/selectors";
 
 const URL = "http://localhost:4000";
 
@@ -69,11 +70,20 @@ export const createBid = (email, amount, artworkId) => {
   return async (dispatch, getState) => {
     dispatch(appLoading());
     try {
-      const response = await axios.post(`${URL}/artworks/${artworkId}/bid`, {
-        email,
-        amount,
-        artworkId
-      });
+      // const response = await axios.post(`${URL}/artworks/${artworkId}/bid`, {
+      //   email,
+      //   amount,
+      //   artworkId
+      // });
+      const token = selectToken(getState());
+      const response = await axios.post(
+        `${URL}/artworks/${artworkId}/bid`,
+        { email, amount, artworkId },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
       dispatch(createBidFetched(response.data));
       dispatch(appDoneLoading());
     } catch (e) {
