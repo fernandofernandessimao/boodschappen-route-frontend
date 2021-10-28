@@ -23,6 +23,7 @@ export default function ArtworkDetails(params) {
 
   useEffect(() => {
     dispatch(getArtworkDetails(id));
+    setAmount(getMinimumBid + 1);
   }, [dispatch]);
 
   if (!artwork || !artwork.bids) return <Loading />;
@@ -39,7 +40,7 @@ export default function ArtworkDetails(params) {
   }
 
   return (
-    <div >
+    <div>
       <img src={`${artwork.imageUrl}`} alt="" width="500px" height="500px" />
       <h1>{artwork.title}</h1>
       <img src={`${heartImage}`} alt="heart" width="50px%" height="50px" />{" "}
@@ -71,9 +72,13 @@ export default function ArtworkDetails(params) {
             min={getMinimumBid()}
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
+            placeholder={getMinimumBid()} //otherwise bid value would be null
           ></input>
           <button
-            onClick={() => dispatch(createBid(userEmail, amount, artwork.id))}
+            onClick={() => {
+              dispatch(createBid(userEmail, getMinimumBid(), artwork.id));
+              setAmount(getMinimumBid() + 1);
+            }}
           >
             Bid
           </button>
