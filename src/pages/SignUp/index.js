@@ -9,10 +9,10 @@ import { useHistory, Link } from "react-router-dom";
 import { Col } from "react-bootstrap";
 
 export default function SignUp() {
-  const [name, setName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isArtist, setArtist] = useState(false);
   const dispatch = useDispatch();
   const token = useSelector(selectToken);
   const history = useHistory();
@@ -26,22 +26,33 @@ export default function SignUp() {
   function submitForm(event) {
     event.preventDefault();
 
-    dispatch(signUp(name, email, password, isArtist));
+    dispatch(signUp(firstName, lastName, email, password));
     setEmail("");
     setPassword("");
-    setName("");
+    setFirstName("");
+    setLastName("");
   }
   return (
     <Container>
       <Form as={Col} md={{ span: 6, offset: 3 }} className="mt-5">
         <h1 className="mt-5 mb-5">Signup</h1>
-        <Form.Group controlId="formBasicName">
+        <Form.Group controlId="formFirstName">
           <Form.Label>Name</Form.Label>
           <Form.Control
-            value={name}
-            onChange={(event) => setName(event.target.value)}
+            value={firstName}
+            onChange={(event) => setFirstName(event.target.value)}
             type="text"
-            placeholder="Enter name"
+            placeholder="First name"
+            required
+          />
+        </Form.Group>
+        <Form.Group controlId="formLastName">
+          <Form.Label>Name</Form.Label>
+          <Form.Control
+            value={lastName}
+            onChange={(event) => setLastName(event.target.value)}
+            type="text"
+            placeholder="Last name"
             required
           />
         </Form.Group>
@@ -60,15 +71,6 @@ export default function SignUp() {
         </Form.Group>
 
         <Form.Group controlId="formBasicPassword">
-        <input
-            onChange={(event) => {
-              setArtist(!isArtist);
-            }}
-            type="checkbox"
-            id="artist"
-          ></input>
-          <Form.Label> I am an Artist</Form.Label>
-          <br/>
           <Form.Label>Password</Form.Label>
           <Form.Control
             value={password}
@@ -76,7 +78,7 @@ export default function SignUp() {
             type="password"
             placeholder="Password"
             required
-          />                   
+          />
         </Form.Group>
         <Form.Group className="mt-5">
           <Button variant="primary" type="submit" onClick={submitForm}>
