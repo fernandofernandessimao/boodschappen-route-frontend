@@ -2,9 +2,12 @@
 
 # dependencies
 /node_modules
+/src/components/ArtworkDetails.js
+/src/components/Artworks.js
+/src/components/Auction.js
+
 /.pnp
 .pnp.js
-
 # testing
 /coverage
 

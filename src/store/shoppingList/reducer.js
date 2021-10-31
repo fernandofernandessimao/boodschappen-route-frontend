@@ -1,14 +1,14 @@
 const initialState = {
-  artworks: [],
+  shoppingLists: [],
   artworkDetails: [],
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case "ARTWORK/list": {
+    case "SHOPPINGLIST/list": {
       return {
         ...state,
-        artworks: [...action.payload],
+        shoppingLists: [...action.payload],
       };
     }
     case "ARTWORK/details": {

@@ -12,10 +12,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectAppLoading } from "./store/appState/selectors";
 import { getUserWithStoredToken } from "./store/user/actions";
 import { Jumbotron } from "react-bootstrap";
-import Artworks from "./components/Artworks";
-import ArtworkDetails from "./components/ArtworkDetails";
 import Auction from "./components/Auction";
 import About from "./components/About";
+import ShoppingLists from "./components/ShoppingLists"
 
 const Other = () => (
   <Jumbotron>
@@ -37,8 +36,8 @@ function App() {
       <MessageBox />
       {isLoading ? <Loading /> : null}
       <Switch>
-        <Route exact path="/" component={Artworks} />
-        <Route path="/artworks/:id" component={ArtworkDetails} />
+        <Route exact path="/" component={ShoppingLists} />
+        {/* <Route path="/artworks/:id" component={ArtworkDetails} /> */}
         <Route path="/auction" component={Auction} />
         <Route path="/about" component={About} />
         <Route path="/other" component={Other} />

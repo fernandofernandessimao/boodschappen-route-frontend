@@ -1,0 +1,93 @@
+import axios from "axios";
+import { appDoneLoading, appLoading } from "../appState/actions";
+import { selectToken } from "../user/selectors";
+
+const URL = "http://localhost:4000";
+
+export const shoppingListsFetched = (artworks) => {
+  return {
+    type: "SHOPPINGLIST/list",
+    payload: artworks,
+  };
+};
+
+export const getShoppingLists = async (dispatch, getState) => {
+  dispatch(appLoading);
+  try {
+    const response = await axios.get(`${URL}/lists`);
+    console.log(response.data)
+    dispatch(shoppingListsFetched(response.data));
+    dispatch(appDoneLoading);
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
+// export const artworkDetailsFetched = (artwork) => {
+//   return {
+//     type: "ARTWORK/details",
+//     payload: artwork,
+//   };
+// };
+
+// export const getArtworkDetails = (id) => async (dispatch, getState) => {
+//   dispatch(appLoading);
+//   try {
+//     const response = await axios.get(`${URL}/artworks/${id}`);
+//     dispatch(artworkDetailsFetched(response.data));
+//     dispatch(appDoneLoading);
+//   } catch (e) {
+//     console.log(e.message);
+//   }
+// };
+
+// export const updateArtworkHeartFetched = (hearts) => {
+//   return {
+//     type: "ARTWORK/hearts",
+//     payload: hearts,
+//   };
+// };
+
+// export const updateArtworkHeart = (id, heart) => async (dispatch, getState) => {
+//   dispatch(appLoading);
+//   try {
+//     const response = await axios.patch(`${URL}/artworks/${id}/hearts/${heart}`);
+//     dispatch(updateArtworkHeartFetched(heart));
+//     dispatch(appDoneLoading);
+//   } catch (e) {
+//     console.log(e.message);
+//   }
+// };
+
+// export const createBidFetched = (bid) => {
+//   return {
+//     type: "ARTWORK/newBid",
+//     payload: bid,
+//   };
+// };
+
+// export const createBid = (email, amount, artworkId) => {
+//   return async (dispatch, getState) => {
+//     dispatch(appLoading());
+//     try {
+//       // const response = await axios.post(`${URL}/artworks/${artworkId}/bid`, {
+//       //   email,
+//       //   amount,
+//       //   artworkId
+//       // });
+//       const token = selectToken(getState());
+//       const response = await axios.post(
+//         `${URL}/artworks/${artworkId}/bid`,
+//         { email, amount, artworkId },
+//         {
+//           headers: { Authorization: `Bearer ${token}` },
+//         }
+//       );
+
+//       dispatch(createBidFetched(response.data));
+//       dispatch(appDoneLoading());
+//     } catch (e) {
+//       console.log(e.message);
+//     }
+//   };
+// };
