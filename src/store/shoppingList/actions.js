@@ -15,7 +15,7 @@ export const getShoppingLists = async (dispatch, getState) => {
   dispatch(appLoading);
   try {
     const response = await axios.get(`${URL}/lists`);
-    console.log(response.data)
+    console.log(response.data);
     dispatch(shoppingListsFetched(response.data));
     dispatch(appDoneLoading);
   } catch (e) {
@@ -23,41 +23,87 @@ export const getShoppingLists = async (dispatch, getState) => {
   }
 };
 
-// export const artworkDetailsFetched = (artwork) => {
-//   return {
-//     type: "ARTWORK/details",
-//     payload: artwork,
-//   };
-// };
+export const shoppingListDetailsFetched = (shoppingList) => {
+  return {
+    type: "SHOPPINGLIST/details",
+    payload: shoppingList,
+  };
+};
 
-// export const getArtworkDetails = (id) => async (dispatch, getState) => {
-//   dispatch(appLoading);
-//   try {
-//     const response = await axios.get(`${URL}/artworks/${id}`);
-//     dispatch(artworkDetailsFetched(response.data));
-//     dispatch(appDoneLoading);
-//   } catch (e) {
-//     console.log(e.message);
-//   }
-// };
+export const getShoppingListDetails = (id) => async (dispatch, getState) => {
+  dispatch(appLoading);
+  try {
+    const response = await axios.get(`${URL}/shoppinglists/${id}`);
+    dispatch(shoppingListDetailsFetched(response.data));
+    dispatch(appDoneLoading);
+  } catch (e) {
+    console.log(e.message);
+  }
+};
 
-// export const updateArtworkHeartFetched = (hearts) => {
-//   return {
-//     type: "ARTWORK/hearts",
-//     payload: hearts,
-//   };
-// };
+export const updateQuantityFetched = (quantity) => {
+  return {
+    type: "SHOPPINGLIST/quantity",
+    payload: quantity,
+  };
+};
 
-// export const updateArtworkHeart = (id, heart) => async (dispatch, getState) => {
-//   dispatch(appLoading);
-//   try {
-//     const response = await axios.patch(`${URL}/artworks/${id}/hearts/${heart}`);
-//     dispatch(updateArtworkHeartFetched(heart));
-//     dispatch(appDoneLoading);
-//   } catch (e) {
-//     console.log(e.message);
-//   }
-// };
+export const updateQuantity = (id, quantity) => async (dispatch, getState) => {
+  dispatch(appLoading);
+  try {
+    const response = await axios.patch(
+      `${URL}/shoppinglists/product/${id}/${quantity}`
+    );
+    console.log("resposta", response.data);
+    dispatch(updateQuantityFetched(response.data));
+
+    dispatch(appDoneLoading);
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
+export const getProductsFetched = (products) => {
+  return {
+    type: "SHOPPINGLIST/products",
+    payload: products,
+  };
+};
+
+export const getProducts = () => async (dispatch, getState) => {
+  dispatch(appLoading);
+  try {
+    const response = await axios.get(`${URL}/products`);
+   // console.log("products", response.data);
+    dispatch(getProductsFetched(response.data));
+
+    dispatch(appDoneLoading);
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
+export const getCategoriesFetched = (categories) => {
+  return {
+    type: "SHOPPINGLIST/categories",
+    payload: categories,
+  };
+};
+
+export const getCategories = () => async (dispatch, getState) => {
+  dispatch(appLoading);
+  try {
+    const response = await axios.get(`${URL}/categories`);
+   // console.log("categories", response.data);
+    dispatch(getCategoriesFetched(response.data));
+
+    dispatch(appDoneLoading);
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
+
 
 // export const createBidFetched = (bid) => {
 //   return {

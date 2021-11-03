@@ -11,16 +11,12 @@ import Login from "./pages/Login";
 import { useDispatch, useSelector } from "react-redux";
 import { selectAppLoading } from "./store/appState/selectors";
 import { getUserWithStoredToken } from "./store/user/actions";
-import { Jumbotron } from "react-bootstrap";
 import Auction from "./components/Auction";
 import About from "./components/About";
-import ShoppingLists from "./components/ShoppingLists"
+import ShoppingLists from "./components/ShoppingLists";
+import ShoppingListDetails from "./components/ShoppingListDetails";
+import CreateShoppingList from "./components/CreateShoppingList";
 
-const Other = () => (
-  <Jumbotron>
-    <h1>Other</h1>
-  </Jumbotron>
-);
 
 function App() {
   const dispatch = useDispatch();
@@ -37,10 +33,9 @@ function App() {
       {isLoading ? <Loading /> : null}
       <Switch>
         <Route exact path="/" component={ShoppingLists} />
-        {/* <Route path="/artworks/:id" component={ArtworkDetails} /> */}
+        <Route path="/shoppinglists/:id" component={ShoppingListDetails} />
         <Route path="/auction" component={Auction} />
-        <Route path="/about" component={About} />
-        <Route path="/other" component={Other} />
+        <Route path="/products" component={CreateShoppingList} />       
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
       </Switch>

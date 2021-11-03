@@ -17,7 +17,7 @@ export default function Navigation() {
   return (
     <Navbar bg="light" expand="lg">
       <Navbar.Brand as={NavLink} to="/">
-        ESCHER'S VISIONS
+        Boodschappen Route
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
@@ -27,7 +27,7 @@ export default function Navigation() {
           {token && user.isArtist ? (
             <NavbarItem path="/auction" linkText="Start an auction" />
           ) : (
-            <NavbarItem path="/about" linkText="About" />
+            <NavbarItem path="/products" linkText="Products" />
           )}
           {loginLogoutControls}
         </Nav>

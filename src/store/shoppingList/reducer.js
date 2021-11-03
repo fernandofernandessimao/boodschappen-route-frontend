@@ -1,6 +1,8 @@
 const initialState = {
   shoppingLists: [],
-  artworkDetails: [],
+  shoppingListDetails: [],
+  products: [],
+  categories: [],
 };
 
 export default (state = initialState, action) => {
@@ -11,21 +13,34 @@ export default (state = initialState, action) => {
         shoppingLists: [...action.payload],
       };
     }
-    case "ARTWORK/details": {
+    case "SHOPPINGLIST/details": {
       return {
         ...state,
-        artworkDetails: action.payload,
+        shoppingListDetails: [...action.payload],
       };
     }
-    case "ARTWORK/hearts": {
+
+    case "SHOPPINGLIST/quantity": {
       return {
         ...state,
-        artworkDetails: {
-          ...state.artworkDetails,
-          hearts: action.payload,
-        },
+        shoppingListDetails: [...state.shoppingListDetails, ...action.payload],
       };
     }
+
+    case "SHOPPINGLIST/products": {
+      return {
+        ...state,
+        products: [...action.payload],
+      };
+    }
+
+    case "SHOPPINGLIST/categories": {
+      return {
+        ...state,
+        categories: [...action.payload],
+      };
+    }
+
     case "ARTWORK/newBid": {
       console.log("payload", action.payload);
       return {
