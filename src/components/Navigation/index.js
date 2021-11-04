@@ -7,6 +7,7 @@ import { selectToken, selectUser } from "../../store/user/selectors";
 import NavbarItem from "./NavbarItem";
 import LoggedIn from "./LoggedIn";
 import LoggedOut from "./LoggedOut";
+import About from "../About";
 
 export default function Navigation() {
   const token = useSelector(selectToken);
@@ -17,18 +18,16 @@ export default function Navigation() {
   return (
     <Navbar bg="light" expand="lg">
       <Navbar.Brand as={NavLink} to="/">
-        Boodschappen Route
+        Shoppinglist Route
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav style={{ width: "100%" }} fill>
-          <NavbarItem path="/" linkText="My Shopping Lists" />
+          {/* <NavbarItem path="/" linkText="My Shopping Lists" /> */}
           {/* <NavbarItem path="/other" linkText="Other" /> */}
-          {token && user.isArtist ? (
-            <NavbarItem path="/auction" linkText="Start an auction" />
-          ) : (
-            <NavbarItem path="/products" linkText="Products" />
-          )}
+          {token && <NavbarItem path="/" linkText="My shopping lists" />}
+          {token && <NavbarItem path="/products" linkText="Shopping list" />}
+          {!token && <NavbarItem path="/about" linkText="About" />}
           {loginLogoutControls}
         </Nav>
       </Navbar.Collapse>

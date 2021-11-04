@@ -1,29 +1,30 @@
 const initialState = {
-  shoppingLists: [],
-  shoppingListDetails: [],
+  lists: [],
+  listDetails: [],
   products: [],
   categories: [],
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case "SHOPPINGLIST/list": {
+    case "SHOPPINGLIST/lists": {
       return {
         ...state,
-        shoppingLists: [...action.payload],
+        lists: [...action.payload],
       };
     }
     case "SHOPPINGLIST/details": {
       return {
         ...state,
-        shoppingListDetails: [...action.payload],
+        listDetails: [...action.payload],
       };
     }
 
     case "SHOPPINGLIST/quantity": {
+      console.log("quantity", action.payload);
       return {
         ...state,
-        shoppingListDetails: [...state.shoppingListDetails, ...action.payload],
+        shoppingListDetails: action.payload,
       };
     }
 

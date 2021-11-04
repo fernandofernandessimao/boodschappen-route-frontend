@@ -1,9 +1,9 @@
-export function selectShoppingLists(reduxState) {
-  return reduxState.shoppingList.shoppingLists;
+export function selectLists(reduxState) {
+  return reduxState.shoppingList.lists;
 }
 
-export function selectShoppingListDetails(reduxState) {
-  return reduxState.shoppingList.shoppingListDetails;
+export function selectListDetails(reduxState) {
+  return reduxState.shoppingList.listDetails;
 }
 
 export function selectProducts(reduxState) {

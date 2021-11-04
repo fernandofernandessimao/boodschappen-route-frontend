@@ -7,13 +7,14 @@ import {
 import { getProducts, getCategories } from "../store/shoppingList/actions";
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
+import { createShoppingList } from "../store/shoppingList/actions";
 
 export default function CreateShoppingList() {
   const products = useSelector(selectProducts);
   const categories = useSelector(selectCategories);
   const [filterCategories, setFilterCategories] = useState(products);
-  const [list, setList] = useState([]);
-
+  const [myShoppingList, setMyShoppingList] = useState([]);
+  
   const dispatch = useDispatch();
 
   const options = categories.map((c) => {
@@ -25,7 +26,7 @@ export default function CreateShoppingList() {
 
   const formatProducts = (p) => {
     return {
-      value: p.categoryId,
+      value: p.id,
       label: p.name,
     };
   };
@@ -41,21 +42,23 @@ export default function CreateShoppingList() {
   };
 
   const handleChangeProducts = (value) => {
-    setList(value.map((x) => x));
+    setMyShoppingList(value.map((x) => x));
   };
-
-  console.log(list);
 
   const productsByCategory = products
     .filter((p) => filterCategories.includes(p.categoryId))
     .map((p) => formatProducts(p));
 
   const saveList = () => {
-    if (!list.length) {
-      window.alert("your list is empty");
-    }
-    console.log(productsByCategory);
-    console.log(filterCategories);
+    dispatch(createShoppingList(myShoppingList))
+    
+    // if (!shoppingList.length) {
+    //   window.alert("your list is empty");
+    // }
+    // console.log(productsByCategory);
+    // console.log(filterCategories);
+    //dispatch(createShoppingList())
+    //console.log()
   };
 
   return (
@@ -78,7 +81,7 @@ export default function CreateShoppingList() {
             : products.map((p) => formatProducts(p))
         }
         isMulti={true}
-        getValue={() => saveList}
+        //getValue={() => saveList}
         onChange={handleChangeProducts}
       />
       <br />

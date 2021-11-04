@@ -13,8 +13,8 @@ import { selectAppLoading } from "./store/appState/selectors";
 import { getUserWithStoredToken } from "./store/user/actions";
 import Auction from "./components/Auction";
 import About from "./components/About";
-import ShoppingLists from "./components/ShoppingLists";
-import ShoppingListDetails from "./components/ShoppingListDetails";
+import Lists from "./components/Lists";
+import ListDetails from "./components/ListDetails";
 import CreateShoppingList from "./components/CreateShoppingList";
 
 
@@ -32,12 +32,12 @@ function App() {
       <MessageBox />
       {isLoading ? <Loading /> : null}
       <Switch>
-        <Route exact path="/" component={ShoppingLists} />
-        <Route path="/shoppinglists/:id" component={ShoppingListDetails} />
-        <Route path="/auction" component={Auction} />
+        <Route exact path="/" component={Lists} />
+        <Route path="/list/:id" component={ListDetails} />        
         <Route path="/products" component={CreateShoppingList} />       
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
+        <Route path="/about" component={About} />
       </Switch>
     </div>
   );

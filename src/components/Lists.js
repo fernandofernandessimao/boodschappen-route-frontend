@@ -1,21 +1,21 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectShoppingLists } from "../store/shoppingList/selectors";
-import { getShoppingLists } from "../store/shoppingList/actions";
+import { selectLists } from "../store/shoppingList/selectors";
+import { getLists } from "../store/shoppingList/actions";
 import { updateQuantity } from "../store/shoppingList/actions";
 import Loading from "./Loading";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-export default function ShoppingLsts() {
+export default function Lists() {
   const dispatch = useDispatch();
-  const shoppingLists = useSelector(selectShoppingLists);
+  const lists = useSelector(selectLists);
 
   useEffect(() => {
-    dispatch(getShoppingLists);
+    dispatch(getLists);
   }, [dispatch]);
 
-  if (!shoppingLists) return <Loading />;
+  if (!lists) return <Loading />;
 
   return (
     <div
@@ -25,11 +25,10 @@ export default function ShoppingLsts() {
         padding: "15px",
       }}
     >
-      {shoppingLists.map((shoppingList) => {
+      {lists.map((list) => {
         return (
-          <div key={shoppingList.id}>
-            <p>{shoppingList.id}
-            <Link to={`/shoppingLists/${shoppingList.id}`}>
+          <div key={list.id}>
+            <p>{list.id}{" "} <Link to={`/list/${list.id}`}>
               <Button>See details</Button>
             </Link>
             </p>
