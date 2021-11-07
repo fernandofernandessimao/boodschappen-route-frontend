@@ -21,7 +21,7 @@ export default function Lists() {
     <div
       style={{
         textAlign: "left",
-        display: "flex",
+        //display: "flex",
         padding: "15px",
       }}
     >

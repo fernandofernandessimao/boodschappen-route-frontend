@@ -3,11 +3,15 @@ import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { selectListDetails } from "../store/shoppingList/selectors";
 import { getListDetails } from "../store/shoppingList/actions";
-import { updateQuantity } from "../store/shoppingList/actions";
+import {
+  increaseQuantity,
+  decreaseQuantity,
+} from "../store/shoppingList/actions";
+import Loading from "./Loading";
 import { Button } from "react-bootstrap";
 
 export default function ListDetails(params) {
-  const { id } = useParams();  
+  const { id } = useParams();
   const listDetails = useSelector(selectListDetails);
   const dispatch = useDispatch();
 
@@ -15,46 +19,46 @@ export default function ListDetails(params) {
     dispatch(getListDetails(id));
   }, [dispatch]);
 
+  if (!listDetails) return <Loading />;
   return (
     <div
       style={{
         textAlign: "left",
-        display: "flex",
         padding: "15px",
       }}
     >
-      <ol>
-        {listDetails.map((listDetail) => {
+      <h4>List #{id}</h4>
+      <ul style={{ listStyle: "none" }}>
+        {listDetails.map((product) => {
           return (
-            <div>
+            <div key={product.id}>
               <li>
-                {listDetail.product.name}
-                {/* <Button
+                {product.name}
+                <Button
                   variant="primary"
-                  onClick={() =>
-                    dispatch(
-                      updateQuantity(listDetail.id, listDetail.quantity - 1)
-                    )
-                  }
+                  onClick={() => dispatch(increaseQuantity(product.id))}
                 >
                   -
                 </Button>
-                {listDetail.quantity}
+                {product.quantity}
                 <Button
                   variant="primary"
-                  onClick={() =>
-                    dispatch(
-                      updateQuantity(listDetail.id, listDetail.quantity + 1)
-                    )
-                  }
+                  onClick={() => dispatch(decreaseQuantity(product.id))}
                 >
                   +
-                </Button> */}
+                </Button>
+                <input
+                  style={{ marginLeft: "10px" }}
+                  class="form-check-input"
+                  type="checkbox"
+                  id={product.id}
+                />
               </li>
             </div>
           );
         })}
-      </ol>
+      </ul>
+      <Button variant="primary">Done</Button>
     </div>
   );
 }

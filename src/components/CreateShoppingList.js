@@ -8,13 +8,15 @@ import { getProducts, getCategories } from "../store/shoppingList/actions";
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { createShoppingList } from "../store/shoppingList/actions";
+import { showMessageWithTimeout } from "../store/appState/actions";
+import { Link } from "react-router-dom";
 
 export default function CreateShoppingList() {
   const products = useSelector(selectProducts);
   const categories = useSelector(selectCategories);
   const [filterCategories, setFilterCategories] = useState(products);
   const [myShoppingList, setMyShoppingList] = useState([]);
-  
+
   const dispatch = useDispatch();
 
   const options = categories.map((c) => {
@@ -50,15 +52,10 @@ export default function CreateShoppingList() {
     .map((p) => formatProducts(p));
 
   const saveList = () => {
-    dispatch(createShoppingList(myShoppingList))
-    
-    // if (!shoppingList.length) {
-    //   window.alert("your list is empty");
-    // }
-    // console.log(productsByCategory);
-    // console.log(filterCategories);
-    //dispatch(createShoppingList())
-    //console.log()
+    dispatch(createShoppingList(myShoppingList));
+  };
+  const enableButton = () => {
+    return myShoppingList.length === 0;
   };
 
   return (
@@ -89,6 +86,7 @@ export default function CreateShoppingList() {
         onClick={saveList}
         variant="primary"
         style={{ margin: "auto", display: "block" }}
+        disabled={enableButton()}
       >
         Save
       </Button>

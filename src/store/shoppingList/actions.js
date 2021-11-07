@@ -14,7 +14,7 @@ export const getListsFetched = (lists) => {
 export const getLists = async (dispatch, getState) => {
   dispatch(appLoading);
   try {
-    const response = await axios.get(`${URL}/lists`);  
+    const response = await axios.get(`${URL}/lists`);
     dispatch(getListsFetched(response.data));
     dispatch(appDoneLoading);
   } catch (e) {
@@ -32,8 +32,8 @@ export const getListDetailsFetched = (listDetails) => {
 export const getListDetails = (id) => async (dispatch, getState) => {
   dispatch(appLoading);
   try {
-    const response = await axios.get(`${URL}/list/${id}`);
-    console.log("details", response.data)
+    const response = await axios.get(`${URL}/productlist/${id}`);
+
     dispatch(getListDetailsFetched(response.data));
     dispatch(appDoneLoading);
   } catch (e) {
@@ -48,23 +48,35 @@ export const updateQuantityFetched = (quantity) => {
   };
 };
 
-export const updateQuantity = (id, quantity) => async (dispatch, getState) => {
-  dispatch(appLoading);
-  try {
-    const response = await axios.patch(
-      `${URL}/shoppinglists/product/${id}/${quantity}`
-    );
-    console.log("resposta", response.data);
-    const listResponse = await axios.get(
-      `${URL}/shoppinglists/product/${id}`
-    );
-    
-    dispatch(updateQuantityFetched(listResponse.data));
+export const updateQuantity =
+  (listId, productId, update) => async (dispatch, getState) => {
+    dispatch(appLoading);
+    try {
+      const response = await axios.patch(
+        `${URL}/productlist/${listId}/${productId}/${update}`
+      );
 
-    dispatch(appDoneLoading);
-  } catch (e) {
-    console.log(e.message);
-  }
+      console.log(response.data[0]);
+      dispatch(updateQuantityFetched(response.data[0]));
+
+      dispatch(appDoneLoading);
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
+export const increaseQuantity = (id) => {
+  return {
+    type: "SHOPPINGLIST/increaseQuantity",
+    payload: id,
+  };
+};
+
+export const decreaseQuantity = (id) => {
+  return {
+    type: "SHOPPINGLIST/decreaseQuantity",
+    payload: id,
+  };
 };
 
 export const getProductsFetched = (products) => {
@@ -77,7 +89,7 @@ export const getProductsFetched = (products) => {
 export const getProducts = () => async (dispatch, getState) => {
   dispatch(appLoading);
   try {
-    const response = await axios.get(`${URL}/products`);  
+    const response = await axios.get(`${URL}/products`);
     dispatch(getProductsFetched(response.data));
     dispatch(appDoneLoading);
   } catch (e) {
@@ -115,12 +127,12 @@ export const createShoppingList =
     dispatch(appLoading);
     const token = selectToken(getState());
     const userId = selectUser(getState()).id;
-    console.log("shoppingList",myShoppingList)
+    console.log("shoppingList", myShoppingList);
     try {
       const response = await axios.post(
-        `${URL}/shoppinglist/${userId}`,
+        `${URL}/productlist/${userId}`,
         {
-          myShoppingList,          
+          myShoppingList,
         },
         {
           headers: { Authorization: `Bearer ${token}` },
