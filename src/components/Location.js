@@ -3,8 +3,13 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { useState, useEffect } from "react";
 import { useMapEvents, useMap } from "react-leaflet";
 import { Button } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
+import { getSupermarketCategories } from "../store/shoppingList/actions";
+import { useDispatch } from "react-redux";
 
 export default function Location() {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const [position, setPosition] = useState([
     52.223018186147456, 5.15734198263268,
   ]);
@@ -58,7 +63,7 @@ export default function Location() {
 
   const updateLocation = (event) => {
     setArea(event.target.value);
-    setSupermarket(0)
+    setSupermarket(0);
     event.target.value === "Hilversum"
       ? setPosition(views[0].view)
       : setPosition(views[1].view);
@@ -66,10 +71,8 @@ export default function Location() {
 
   const selectSupermarket = (id) => {
     setSupermarket(parseInt(id));
-    console.log(id);
   };
 
-  console.log(supermarket);
   function ChangeView({ center, zoom }) {
     const map = useMap();
     map.setView(center, zoom);
@@ -80,8 +83,13 @@ export default function Location() {
     return supermarket === 0;
   };
 
+  const generateRoute = () => {
+    dispatch(getSupermarketCategories(supermarket));    
+    history.push("/route")
+  };
+
   return (
-    <div>
+    <div style={{ textAlign: "center", padding: "15px" }}>
       Region
       <select onChange={updateLocation} value={area}>
         <option value="Hilversum">Hilversum</option>
@@ -123,14 +131,16 @@ export default function Location() {
           );
         })}
       </MapContainer>
-      <br />
-      <Button
-        onClick={""}
-        variant="primary"
-        disabled={enableButton()}
-      >
-        Generate Route
-      </Button>
+      <p />
+      <p style={{ textAlign: "center" }}>
+        {enableButton() ? (
+          "select a supermarket"
+        ) : (
+          <Button onClick={() => generateRoute()} variant="primary">
+            Generate Route
+          </Button>
+        )}
+      </p>
     </div>
   );
 }

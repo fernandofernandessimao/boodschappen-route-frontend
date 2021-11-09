@@ -29,7 +29,7 @@ export default function Lists() {
         return (
           <div key={list.id}>
             <p>{list.id}{" "} <Link to={`/list/${list.id}`}>
-              <Button>See details</Button>
+              <Button>See products...</Button>
             </Link>
             </p>
           </div>

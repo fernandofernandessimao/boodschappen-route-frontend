@@ -53,6 +53,8 @@ export default function CreateShoppingList() {
 
   const saveList = () => {
     dispatch(createShoppingList(myShoppingList));
+    
+
   };
   const enableButton = () => {
     return myShoppingList.length === 0;

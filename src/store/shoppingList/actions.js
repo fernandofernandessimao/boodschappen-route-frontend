@@ -1,8 +1,19 @@
 import axios from "axios";
-import { appDoneLoading, appLoading } from "../appState/actions";
+import {
+  appDoneLoading,
+  appLoading,
+  showMessageWithTimeout,
+} from "../appState/actions";
 import { selectToken, selectUser } from "../user/selectors";
 
 const URL = "http://localhost:4000";
+
+export const setChosenList = (list) => {
+  return {
+    type: "SHOPPINGLIST/chosenList",
+    payload: list,
+  };
+};
 
 export const getListsFetched = (lists) => {
   return {
@@ -13,8 +24,11 @@ export const getListsFetched = (lists) => {
 
 export const getLists = async (dispatch, getState) => {
   dispatch(appLoading);
+  const token = selectToken(getState());
   try {
-    const response = await axios.get(`${URL}/lists`);
+    const response = await axios.get(`${URL}/lists`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     dispatch(getListsFetched(response.data));
     dispatch(appDoneLoading);
   } catch (e) {
@@ -122,12 +136,20 @@ export const createShoppingListFetched = (shoppingList) => {
   };
 };
 
+export const deleteProductListFetched = (id) => {
+  console.log("delete");
+  return {
+    type: "SHOPPINGLIST/delete",
+    payload: id,
+  };
+};
+
 export const createShoppingList =
   (myShoppingList) => async (dispatch, getState) => {
     dispatch(appLoading);
     const token = selectToken(getState());
     const userId = selectUser(getState()).id;
-    console.log("shoppingList", myShoppingList);
+    // console.log("shoppingList", myShoppingList);
     try {
       const response = await axios.post(
         `${URL}/productlist/${userId}`,
@@ -138,13 +160,57 @@ export const createShoppingList =
           headers: { Authorization: `Bearer ${token}` },
         }
       );
+      dispatch(
+        showMessageWithTimeout("success", false, "Shopping list created!", 1500)
+      );
       // console.log("categories", response.data);
       // dispatch(getCategoriesFetched(response.data));
-      // dispatch(appDoneLoading);
+      dispatch(appDoneLoading);
     } catch (e) {
       console.log(e.message);
     }
   };
+
+//
+export const deleteProductList = (id) => async (dispatch, getState) => {
+  dispatch(appLoading);
+  const token = selectToken(getState());
+  try {
+    const response = await axios.delete(
+      `${URL}/productlist/${id}`
+      // , {
+      //   headers: { Authorization: `Bearer ${token}` },
+      // }
+    );
+    dispatch(deleteProductListFetched(id));
+    dispatch(getLists);
+    dispatch(
+      showMessageWithTimeout("success", false, "Shoppinglist deleted!", 1500)
+    );
+    dispatch(appDoneLoading);
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
+export const getSupermarketCategoriesFetched = (categories) => {
+  return {
+    type: "SHOPPINGLIST/supermarketCategories",
+    payload: categories,
+  };
+};
+
+export const getSupermarketCategories = (id) => async (dispatch, getState) => {
+  dispatch(appLoading);
+  const token = selectToken(getState());
+  try {
+    const response = await axios.get(`${URL}/supermarket/${id}/categories`);  
+    dispatch(getSupermarketCategoriesFetched(response.data));
+    dispatch(appDoneLoading);
+  } catch (e) {
+    console.log(e.message);
+  }
+};
 
 // export const createBidFetched = (bid) => {
 //   return {

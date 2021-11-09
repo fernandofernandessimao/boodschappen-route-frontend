@@ -2,24 +2,60 @@ import { useEffect } from "react";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { selectListDetails } from "../store/shoppingList/selectors";
-import { getListDetails } from "../store/shoppingList/actions";
+import {
+  getListDetails,
+  setChosenList,
+  deleteProductList,
+  getLists,
+} from "../store/shoppingList/actions";
+import { selectToken } from "../store/user/selectors";
+import { selectChosenList } from "../store/shoppingList/selectors";
+import {
+  showMessageWithTimeout,
+  appLoading,
+  appDoneLoading,
+} from "../store/appState/actions";
 import {
   increaseQuantity,
   decreaseQuantity,
 } from "../store/shoppingList/actions";
 import Loading from "./Loading";
 import { Button } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 
 export default function ListDetails(params) {
   const { id } = useParams();
   const listDetails = useSelector(selectListDetails);
   const dispatch = useDispatch();
+  const token = useSelector(selectToken);
+  const chosenList = useSelector(selectChosenList);
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getListDetails(id));
   }, [dispatch]);
 
   if (!listDetails) return <Loading />;
+
+  const handleChange = () => {
+    dispatch(appLoading);
+    dispatch(setChosenList([listDetails]));
+    dispatch(
+      showMessageWithTimeout(
+        "success",
+        false,
+        `Shoppinglist #${id} selected!`,
+        1500
+      )
+    );
+    history.push("/location");
+  };
+
+  const handleDelete = () => {
+    dispatch(deleteProductList(id));
+    history.push("/lists")
+  };
+
   return (
     <div
       style={{
@@ -27,14 +63,16 @@ export default function ListDetails(params) {
         padding: "15px",
       }}
     >
-      <h4>List #{id}</h4>
+      <h4>Shoppinglist #{id}</h4>
       <ul style={{ listStyle: "none" }}>
-        {listDetails.map((product) => {
-          return (
-            <div key={product.id}>
-              <li>
-                {product.name}
-                <Button
+        {!listDetails
+          ? "You have no shoppinglists yet..."
+          : listDetails.map((product) => {
+              return (
+                <div key={product.id}>
+                  <li>
+                    {product.name}
+                    {/* <Button
                   variant="primary"
                   onClick={() => dispatch(increaseQuantity(product.id))}
                 >
@@ -52,13 +90,18 @@ export default function ListDetails(params) {
                   class="form-check-input"
                   type="checkbox"
                   id={product.id}
-                />
-              </li>
-            </div>
-          );
-        })}
+                /> */}
+                  </li>
+                </div>
+              );
+            })}
       </ul>
-      <Button variant="primary">Done</Button>
+      <Button onClick={() => handleChange()} variant="primary">
+        Select
+      </Button>{" "}
+      <Button onClick={() => handleDelete()} variant="primary">
+        Delete
+      </Button>
     </div>
   );
 }

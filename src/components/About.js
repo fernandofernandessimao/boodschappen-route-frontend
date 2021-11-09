@@ -1,10 +1,12 @@
 export default function About() {
   return (
     <div style={{ textAlign: "center" }}>
-      <h2> Shopping list route </h2>
-      The idea is to provide the fastest route based on your shopping list.<br/> 
-      As it needs real data and actual models from supermakets. <br/>
-      It is a conceptual idea that can be applied to any store and wharehouse.
+      <p style={{ padding: "15px", textAlign: "justify" }}>
+        First portfolio project for Full Stack Developer. This actual version is
+        a conceptual idea, as it needs real data and models from supermakets or
+        stores. Althought conceptual, it can be applied (and actually it is) to
+        any store and wharehouse.
+      </p>
     </div>
   );
 }

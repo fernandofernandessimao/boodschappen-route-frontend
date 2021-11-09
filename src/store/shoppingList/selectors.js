@@ -13,3 +13,11 @@ export function selectProducts(reduxState) {
 export function selectCategories(reduxState) {
   return reduxState.shoppingList.categories;
 }
+
+export function selectChosenList(reduxState) {
+  return reduxState.shoppingList.chosenList;
+}
+
+export function selectSupermarketCategories(reduxState) {
+  return reduxState.shoppingList.supermarketCategories;
+}

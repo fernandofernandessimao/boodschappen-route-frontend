@@ -3,6 +3,9 @@ const initialState = {
   listDetails: [],
   products: [],
   categories: [],
+  chosenList: [],
+  supermarketCategories: [],
+  supermarket: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -31,6 +34,13 @@ const reducer = (state = initialState, action) => {
         }),
       };
     }
+    case "SHOPPINGLIST/supermarketCategories": {
+      return {
+        ...state,
+        supermarketCategories: action.payload,
+      };
+    }
+
     case "SHOPPINGLIST/increaseQuantity": {
       return {
         ...state,
@@ -40,6 +50,12 @@ const reducer = (state = initialState, action) => {
           }
           return p;
         }),
+      };
+    }
+    case "SHOPPINGLIST/delete": {
+      return {
+        ...state,
+        listDetails: null,
       };
     }
 
@@ -83,17 +99,22 @@ const reducer = (state = initialState, action) => {
         categories: [...action.payload],
       };
     }
-
-    case "ARTWORK/newBid": {
-      console.log("payload", action.payload);
+    case "SHOPPINGLIST/chosenList": {
       return {
         ...state,
-        artworkDetails: {
-          ...state.artworkDetails,
-          bids: [...state.artworkDetails.bids, action.payload],
-        },
+        chosenList: [...action.payload[0]],
       };
     }
+    // case "ARTWORK/newBid": {
+    //   console.log("payload", action.payload);
+    //   return {
+    //     ...state,
+    //     artworkDetails: {
+    //       ...state.artworkDetails,
+    //       bids: [...state.artworkDetails.bids, action.payload],
+    //     },
+    //   };
+    // }
     default:
       return state;
   }
