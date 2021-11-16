@@ -1,8 +1,7 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectChosenList } from "../store/shoppingList/selectors";
 import { useEffect, useState } from "react";
 import Loading from "./Loading";
-import { getSupermarketCategories } from "../store/shoppingList/actions";
 import {
   selectSupermarketCategories,
   selectCategories,
@@ -12,7 +11,6 @@ import { useHistory } from "react-router";
 
 
 export default function ShoppingRoute() {
-  const dispatch = useDispatch();
   const productList = useSelector(selectChosenList);
   const categories = useSelector(selectSupermarketCategories);
   const categoriesName = useSelector(selectCategories);

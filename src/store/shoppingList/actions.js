@@ -163,7 +163,7 @@ export const createShoppingList =
       dispatch(
         showMessageWithTimeout("success", false, "Shopping list created!", 1500)
       );
-      // console.log("categories", response.data);
+      console.log("categories", response.data);
       // dispatch(getCategoriesFetched(response.data));
       dispatch(appDoneLoading);
     } catch (e) {
@@ -174,7 +174,6 @@ export const createShoppingList =
 //
 export const deleteProductList = (id) => async (dispatch, getState) => {
   dispatch(appLoading);
-  const token = selectToken(getState());
   try {
     const response = await axios.delete(
       `${URL}/productlist/${id}`
@@ -204,7 +203,7 @@ export const getSupermarketCategories = (id) => async (dispatch, getState) => {
   dispatch(appLoading);
   const token = selectToken(getState());
   try {
-    const response = await axios.get(`${URL}/supermarket/${id}/categories`);  
+    const response = await axios.get(`${URL}/supermarket/${id}/categories`);
     dispatch(getSupermarketCategoriesFetched(response.data));
     dispatch(appDoneLoading);
   } catch (e) {

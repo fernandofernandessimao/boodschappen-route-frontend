@@ -6,19 +6,8 @@ import {
   getListDetails,
   setChosenList,
   deleteProductList,
-  getLists,
 } from "../store/shoppingList/actions";
-import { selectToken } from "../store/user/selectors";
-import { selectChosenList } from "../store/shoppingList/selectors";
-import {
-  showMessageWithTimeout,
-  appLoading,
-  appDoneLoading,
-} from "../store/appState/actions";
-import {
-  increaseQuantity,
-  decreaseQuantity,
-} from "../store/shoppingList/actions";
+import { showMessageWithTimeout, appLoading } from "../store/appState/actions";
 import Loading from "./Loading";
 import { Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
@@ -27,13 +16,11 @@ export default function ListDetails(params) {
   const { id } = useParams();
   const listDetails = useSelector(selectListDetails);
   const dispatch = useDispatch();
-  const token = useSelector(selectToken);
-  const chosenList = useSelector(selectChosenList);
   const history = useHistory();
 
   useEffect(() => {
     dispatch(getListDetails(id));
-  }, [dispatch]);
+  }, []);
 
   if (!listDetails) return <Loading />;
 
@@ -53,7 +40,7 @@ export default function ListDetails(params) {
 
   const handleDelete = () => {
     dispatch(deleteProductList(id));
-    history.push("/lists")
+    history.push("/lists");
   };
 
   return (

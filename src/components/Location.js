@@ -1,7 +1,7 @@
 import React from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import { useState, useEffect } from "react";
-import { useMapEvents, useMap } from "react-leaflet";
+import { useState } from "react";
+import { useMap } from "react-leaflet";
 import { Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { getSupermarketCategories } from "../store/shoppingList/actions";

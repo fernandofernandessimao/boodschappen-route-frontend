@@ -8,8 +8,6 @@ import { getProducts, getCategories } from "../store/shoppingList/actions";
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { createShoppingList } from "../store/shoppingList/actions";
-import { showMessageWithTimeout } from "../store/appState/actions";
-import { Link } from "react-router-dom";
 
 export default function CreateShoppingList() {
   const products = useSelector(selectProducts);
