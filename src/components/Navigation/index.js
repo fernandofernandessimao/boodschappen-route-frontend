@@ -23,7 +23,7 @@ export default function Navigation() {
         <Nav style={{ width: "100%" }} fill>
           {/* <NavbarItem path="/" linkText="My Shopping Lists" /> */}
           {/* <NavbarItem path="/other" linkText="Other" /> */}
-          {token && <NavbarItem path="/" linkText="My shopping lists" />}
+          {token && <NavbarItem path="/lists" linkText="My shopping lists" />}
           {token && <NavbarItem path="/products" linkText="Shopping list" />}
           {!token && <NavbarItem path="/about" linkText="About" />}
           {loginLogoutControls}
