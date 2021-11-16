@@ -3,17 +3,26 @@ import { selectChosenList } from "../store/shoppingList/selectors";
 import { useEffect, useState } from "react";
 import Loading from "./Loading";
 import { getSupermarketCategories } from "../store/shoppingList/actions";
-import { selectSupermarketCategories } from "../store/shoppingList/selectors";
+import {
+  selectSupermarketCategories,
+  selectCategories,
+} from "../store/shoppingList/selectors";
 import { Button } from "react-bootstrap";
 import { useHistory } from "react-router";
+
 
 export default function ShoppingRoute() {
   const dispatch = useDispatch();
   const productList = useSelector(selectChosenList);
   const categories = useSelector(selectSupermarketCategories);
-  let catProd = [];
-  const history = useHistory()
+  const categoriesName = useSelector(selectCategories);
 
+  // useState was returning data not the way it was supposed to
+  let catProd = [];
+  const history = useHistory();
+  const [checkedProduct, setCheckedProduct] = useState([]);
+
+  // a product has only one category
   const categoryProduct = () => {
     categories.map((c) => {
       productList.map((p) => {
@@ -23,7 +32,17 @@ export default function ShoppingRoute() {
       });
     });
   };
+  // just styling for ui
+  const checkList = (id) => {
+    if (!checkedProduct.includes(id)) {
+      setCheckedProduct([...checkedProduct, id]);
+    } else {
+      const filter = [...checkedProduct].filter((f) => f !== id);
+      setCheckedProduct(filter);
+    }
+  };
 
+  console.log(checkedProduct);
   // console.log("produclist", productList);
   categoryProduct();
 
@@ -39,13 +58,17 @@ export default function ShoppingRoute() {
       <ol style={{ listStyle: "none" }}>
         {catProd.map((c) => {
           return (
-            <li>
-              Category #{c}
+            <li key={c}>
+              Category
+              {categoriesName.map((name) => {
+                if (name.id === c) return <h6><i>{name.description}</i></h6>;
+              })}
               {productList.map((p) => {
                 if (p.categoryId === c) {
                   return (
                     <li>
-                      {p.name} <input type="checkbox" />
+                      {p.name}{" "}
+                      <input onChange={() => checkList(p.id)} type="checkbox" />
                     </li>
                   );
                 }
@@ -55,7 +78,9 @@ export default function ShoppingRoute() {
           );
         })}
       </ol>
-      <Button onClick={()=> history.push("/lists")} variant="primary">Done!</Button>
+      <Button onClick={() => history.push("/lists")} variant="primary">
+        Done!
+      </Button>
     </div>
   );
 }
