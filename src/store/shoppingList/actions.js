@@ -25,8 +25,9 @@ export const getListsFetched = (lists) => {
 export const getLists = async (dispatch, getState) => {
   dispatch(appLoading);
   const token = selectToken(getState());
+  const userId = selectUser(getState()).id;
   try {
-    const response = await axios.get(`${URL}/lists`, {
+    const response = await axios.get(`${URL}/lists/${userId}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     dispatch(getListsFetched(response.data));
