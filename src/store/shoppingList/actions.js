@@ -6,7 +6,7 @@ import {
 } from "../appState/actions";
 import { selectToken, selectUser } from "../user/selectors";
 
-const URL = "http://localhost:4000";
+const URL = "https://shoppinglist-route.herokuapp.com";
 
 export const setChosenList = (list) => {
   return {
