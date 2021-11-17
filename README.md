@@ -14,7 +14,8 @@ Hi, I'am Fernando. Curious by nature and eager to learn. Knowledge it the most v
 # PROJECT Shopping list route 
 
 First portfolio project for Full Stack Developer course. This actual version is a conceptual idea, as it needs real data and models from supermarkets or stores. Although conceptual, it can be applied (and actually it is) to any store and warehouse, both for workers and employees. 
-As I come from a game programming background, I thought I could create something with a searching algorithm. The true is I got too excited and didn't think all the way through and the actual app is a really simplified version of what I have envisioned. 
+As I come from a game programming background, I thought I could create something with a searching algorithm. The true is I got too excited and didn't think all the way through and the actual app is a really simplified version of what I had envisioned.
+This gives an idea of what I had in mind and what it the actual app should look https://www.youtube.com/watch?v=4XJaDwLSKU0. 
 
 # LINKS
 
